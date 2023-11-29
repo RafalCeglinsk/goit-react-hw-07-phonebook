@@ -6,8 +6,7 @@ import { filterContact } from 'redux/contactSlice';
 
 import css from './Filter.module.css';
 
-export const Filter = () => {
-  const filter = useSelector(getFilter);
+export const Filter = ({ filter }) => {
   const dispatch = useDispatch();
 
   const handleFilterChange = e => {
@@ -29,5 +28,4 @@ export const Filter = () => {
 
 Filter.propTypes = {
   filter: PropTypes.string.isRequired,
-  handleFilterChange: PropTypes.func.isRequired,
 };

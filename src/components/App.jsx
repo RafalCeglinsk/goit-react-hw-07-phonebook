@@ -5,10 +5,11 @@ import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact, localStorageCheck } from 'redux/contactSlice';
-import { getContacts } from 'redux/selectors';
+import { getContacts, getFilter } from 'redux/selectors';
 
 export const App = () => {
   const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,14 +37,8 @@ export const App = () => {
       />
 
       <h2>Contacts</h2>
-      <Filter />
+      <Filter filter={filter} />
       <ContactList />
     </div>
   );
-};
-
-App.propTypes = {
-  contacts: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
 };
