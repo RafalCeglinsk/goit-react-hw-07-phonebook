@@ -15,10 +15,10 @@ use this app to store you contacts. Add, remove or filter them easily!
 
 Project is created with:
 
-`SCSS` `JS` `React.js` `Redux`
+`SCSS` `JS` `React.js` `Redux` `mockapi`
 
 ## Check this out
 
 You can check my project running on my Github Pages!
 
-- https://rafalceglinsk.github.io/goit-react-hw-06-phonebook/
+- https://rafalceglinsk.github.io/goit-react-hw-07-phonebook/
