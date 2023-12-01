@@ -1,16 +1,17 @@
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { getFilter } from 'redux/selectors';
-import { filterContact } from 'redux/contactSlice';
+import { setFilter } from 'redux/filterSlice';
 
 import css from './Filter.module.css';
+import { selectGetFilter } from 'redux/selectors';
 
-export const Filter = ({ filter }) => {
+export const Filter = () => {
+  const filter = useSelector(selectGetFilter);
   const dispatch = useDispatch();
 
   const handleFilterChange = e => {
-    dispatch(filterContact(e.target.value));
+    dispatch(setFilter(e.target.value));
   };
   return (
     <label>

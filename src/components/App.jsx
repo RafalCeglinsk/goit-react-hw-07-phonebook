@@ -1,44 +1,36 @@
-import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact, localStorageCheck } from 'redux/contactSlice';
-import { getContacts, getFilter } from 'redux/selectors';
+import { fetchContacts } from 'redux/operations';
+import { selectContactsError, selectContactsIsLoading } from 'redux/selectors';
 
 export const App = () => {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const isLoading = useSelector(selectContactsIsLoading);
+  const error = useSelector(selectContactsError);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const savedContacts = localStorage.getItem('contacts');
-    if (savedContacts) {
-      dispatch(localStorageCheck(JSON.parse(savedContacts)));
-    }
+    dispatch(fetchContacts());
   }, [dispatch]);
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
-
-  const handleSubmit = e => {
-    dispatch(addContact(contacts));
-  };
 
   return (
     <div>
+      {isLoading && !error && <p>Loading...</p>}
       <h1>Phonebook</h1>
-      <ContactForm
-        name={contacts.name}
-        number={contacts.number}
-        onSubmit={handleSubmit}
-      />
+      <ContactForm />
 
       <h2>Contacts</h2>
-      <Filter filter={filter} />
+      <Filter />
       <ContactList />
     </div>
   );
+};
+
+App.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.string,
 };
